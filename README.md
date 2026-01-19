@@ -21,9 +21,9 @@
 
 **Rezervist**; küçük ve orta ölçekli butik otellerin, pansiyonların ve konaklama tesislerinin günlük operasyonlarını dijital ortamda yönetmelerini sağlayan web tabanlı bir otomasyon sistemidir.
 
-[cite_start]Bu projenin temel amacı[cite: 18]; manuel rezervasyon takibinden kaynaklanan hataları (çifte rezervasyon, kayıp kayıtlar) ortadan kaldırmak, kasa giriş-çıkışlarını şeffaf bir şekilde denetlemek ve misafir memnuniyetini artırmaktır.
+Bu projenin temel amacı; manuel rezervasyon takibinden kaynaklanan hataları (çifte rezervasyon, kayıp kayıtlar) ortadan kaldırmak, kasa giriş-çıkışlarını şeffaf bir şekilde denetlemek ve misafir memnuniyetini artırmaktır.
 
-## [cite_start]👥 Hedef Kullanıcı Kitlesi [cite: 21]
+## 👥 Hedef Kullanıcı Kitlesi
 
 | Kullanıcı Tipi | Kullanım Amacı |
 | :--- | :--- |
@@ -33,7 +33,7 @@
 
 ---
 
-## [cite_start]🎬 Senaryo ve Kullanım Akışı [cite: 23]
+## 🎬 Senaryo ve Kullanım Akışı
 
 Sistem, gerçek bir otelcilik senaryosu üzerine kurgulanmıştır ve aşağıdaki döngüyü yönetir:
 
@@ -44,20 +44,20 @@ Sistem, gerçek bir otelcilik senaryosu üzerine kurgulanmıştır ve aşağıda
 
 ---
 
-## [cite_start]💻 Kullanılan Teknolojiler [cite: 63]
+## 💻 Kullanılan Teknolojiler
 
-[cite_start]Proje, **MVC (Model-View-Controller)** mimari yapısına sadık kalınarak geliştirilmiştir[cite: 8].
+Proje, **MVC (Model-View-Controller)** mimari yapısına sadık kalınarak geliştirilmiştir.
 
 | Kategori | Teknoloji | Açıklama |
 | :--- | :--- | :--- |
-| **Backend** | C# / ASP.NET Core MVC 8.0 | Uygulamanın sunucu tarafı ve iş mantığı. |
-| **Veritabanı** | PostgreSQL (Entity Framework Core) | [cite_start]Verilerin güvenli ve ilişkisel olarak tutulması[cite: 15]. |
-| **Frontend** | HTML5, CSS3, Bootstrap 5 | [cite_start]Responsive (Mobil Uyumlu) ve modern arayüz tasarımı[cite: 33]. |
-| **Araçlar** | Git & GitHub, Visual Studio Code | Versiyon kontrolü ve geliştirme ortamı. |
+| **Backend** | • C# <br> • ASP.NET Core MVC 8.0 | Uygulamanın sunucu tarafı ve iş mantığı. |
+| **Veritabanı** | • PostgreSQL <br> • Entity Framework Core | Verilerin güvenli ve ilişkisel olarak tutulması. |
+| **Frontend** | • HTML5 / CSS3 <br> • Bootstrap 5 | Responsive (Mobil Uyumlu) ve modern arayüz tasarımı. |
+| **Araçlar** | • Git & GitHub <br> • Visual Studio Code | Versiyon kontrolü ve geliştirme ortamı. |
 
 ---
 
-## [cite_start]🚀 Proje Özellikleri ve CRUD [cite: 16]
+## 🚀 Proje Özellikleri ve CRUD
 
 | İşlem | Özellik | Detay |
 | :--- | :--- | :--- |
@@ -74,7 +74,7 @@ Projenin çalışır halini, MVC yapısını ve kodlarını detaylı incelediği
 
 [![YouTube Video İzle](https://img.shields.io/badge/YouTube-Video_İzle-red?style=for-the-badge&logo=youtube)](BURAYA_YOUTUBE_LINKINI_YAPISTIR)
 
-[cite_start]*(Video Süresi: X Dakika)* [cite: 74]
+*(Video Süresi: X Dakika)*
 
 ---
 
