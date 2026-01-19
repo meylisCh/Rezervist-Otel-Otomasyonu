@@ -1,39 +1,87 @@
-# Rezervist - Otel Yönetim Sistemi
+<div align="center">
 
-## Proje Amacı
-Rezervist, küçük ve orta ölçekli butik otellerin ve pansiyonların; rezervasyon süreçlerini, oda durumlarını, misafir takiplerini ve kasa işlemlerini dijital ortamda hatasız ve hızlı bir şekilde yönetmelerini sağlayan web tabanlı bir otomasyon sistemidir.
+# 🏨 REZERVİST | Otel Yönetim Sistemi
 
-## Hedef Kullanıcı Kitlesi
-* **Otel Ön Büro Personelleri (Resepsiyonist):** Günlük giriş-çıkış ve misafir kayıt işlemleri için.
-* **Otel Yöneticileri:** Doluluk oranlarını ve kasa durumunu takip etmek için.
-* **Pansiyon İşletmecileri:** Manuel defter takibi yerine dijital kayıt tutmak için.
+**Modern, Hızlı ve Kullanıcı Dostu Otel Otomasyonu**
 
-## Senaryo / Kullanım Amacı
-Proje, gerçek bir otel işletmesindeki iş akışını simüle eder:
-1.  **Rezervasyon:** Müşteri telefonla aradığında resepsiyonist uygun oda sorgular ve rezervasyon oluşturur.
-2.  **Check-In (Giriş):** Misafir otele geldiğinde kimlik bilgileri (1774 sayılı kanuna uygun olarak) sisteme girilir ve statü "Giriş Yapıldı" olur.
-3.  **Konaklama & Harcama:** Misafir konaklama süresince oda servisi veya ekstra hizmet (minibar, yemek vb.) alırsa, bu harcamalar odaya eklenir.
-4.  **Check-Out (Çıkış) & Ödeme:** Çıkış sırasında sistem; oda ücretini ve ekstra harcamaları toplayarak faturayı çıkarır. Ödeme alındıktan sonra oda boşaltılır ve temizlik listesine aktarılır.
+[![.NET Core](https://img.shields.io/badge/.NET%20Core-8.0-purple?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/)
+[![C#](https://img.shields.io/badge/C%23-Language-239120?style=for-the-badge&logo=c-sharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap)](https://getbootstrap.com/)
+[![Status](https://img.shields.io/badge/Status-Tamamlandı-success?style=for-the-badge)]()
 
-## Kullanılan Teknolojiler
-Bu proje **MVC (Model-View-Controller)** mimarisine uygun olarak geliştirilmiştir.
+[Proje Amacı](#-proje-amacı) • [Teknolojiler](#-kullanılan-teknolojiler) • [Özellikler](#-proje-özellikleri-ve-crud) • [Video](#-tanıtım-videosu)
 
-* **Programlama Dili:** C#
-* **Framework:** ASP.NET Core MVC (8.0)
-* **Veritabanı:** PostgreSQL (Entity Framework Core / Code First Yaklaşımı)
-* **Arayüz (Frontend):** HTML5, CSS3, Bootstrap 5, JavaScript
-* **Geliştirme Ortamı:** Visual Studio Code (MacOS)
-
-## Proje Özellikleri (CRUD İşlemleri)
-* **Create (Ekleme):** Yeni rezervasyon oluşturma, yeni misafir kaydı, odaya harcama ekleme.
-* **Read (Okuma):** Oda doluluk durumu görüntüleme, konaklayanlar listesi, geçmiş rezervasyonlar, fatura detayları.
-* **Update (Güncelleme):** Check-In işlemi (misafir TC güncelleme), Check-Out işlemi, ödeme durumu güncelleme, oda temizlik durumu değiştirme.
-* **Delete (Silme):** Hatalı rezervasyonları iptal etme veya silme.
-
-## Tanıtım Videosu
-Projenin kullanımını, MVC yapısını ve kodlarını anlattığım tanıtım videosuna aşağıdaki linkten ulaşabilirsiniz:
-
-**[VİDEO LİNKİNİ BURAYA YAPIŞTIRACAKSIN]**
+</div>
 
 ---
-*Geliştirici: Meylis Ch*
+
+## 🎯 Proje Amacı
+> **"Kağıt kalemi bırakın, dijitale geçin."**
+
+**Rezervist**; küçük ve orta ölçekli butik otellerin, pansiyonların ve konaklama tesislerinin günlük operasyonlarını dijital ortamda yönetmelerini sağlayan web tabanlı bir otomasyon sistemidir.
+
+[cite_start]Bu projenin temel amacı[cite: 18]; manuel rezervasyon takibinden kaynaklanan hataları (çifte rezervasyon, kayıp kayıtlar) ortadan kaldırmak, kasa giriş-çıkışlarını şeffaf bir şekilde denetlemek ve misafir memnuniyetini artırmaktır.
+
+## [cite_start]👥 Hedef Kullanıcı Kitlesi [cite: 21]
+
+| Kullanıcı Tipi | Kullanım Amacı |
+| :--- | :--- |
+| 🛎️ **Resepsiyonist** | Hızlı Check-In/Check-Out, oda sorgulama ve misafir kaydı. |
+| 👔 **Otel Müdürü** | Günlük kasa takibi, doluluk oranları ve gelir raporlaması. |
+| 🏡 **Pansiyon Sahibi** | Odaların temizlik durumlarını ve anlık doluluğu tek ekrandan yönetme. |
+
+---
+
+## [cite_start]🎬 Senaryo ve Kullanım Akışı [cite: 23]
+
+Sistem, gerçek bir otelcilik senaryosu üzerine kurgulanmıştır ve aşağıdaki döngüyü yönetir:
+
+1.  📞 **Rezervasyon:** Misafir aradığında, resepsiyonist tarih aralığına göre **müsait odaları** filtreler.
+2.  📝 **Kayıt (Check-In):** Misafir otele geldiğinde kimlik bilgileri (TCKN) girilir ve oda **"Dolu"** statüsüne geçer.
+3.  ☕ **Harcama:** Konaklama süresince yapılan ekstra harcamalar (Oda servisi, minibar) misafirin hesabına tek tıkla işlenir.
+4.  💳 **Çıkış (Check-Out):** Sistem, oda ücreti + ekstraları hesaplar. Ödeme alındıktan sonra fatura dökümü verilir ve oda **"Temizlik Bekliyor"** moduna geçer.
+
+---
+
+## [cite_start]💻 Kullanılan Teknolojiler [cite: 63]
+
+[cite_start]Proje, **MVC (Model-View-Controller)** mimari yapısına sadık kalınarak geliştirilmiştir[cite: 8].
+
+| Kategori | Teknoloji | Açıklama |
+| :--- | :--- | :--- |
+| **Backend** | C# / ASP.NET Core MVC 8.0 | Uygulamanın sunucu tarafı ve iş mantığı. |
+| **Veritabanı** | PostgreSQL (Entity Framework Core) | [cite_start]Verilerin güvenli ve ilişkisel olarak tutulması[cite: 15]. |
+| **Frontend** | HTML5, CSS3, Bootstrap 5 | [cite_start]Responsive (Mobil Uyumlu) ve modern arayüz tasarımı[cite: 33]. |
+| **Araçlar** | Git & GitHub, Visual Studio Code | Versiyon kontrolü ve geliştirme ortamı. |
+
+---
+
+## [cite_start]🚀 Proje Özellikleri ve CRUD [cite: 16]
+
+| İşlem | Özellik | Detay |
+| :--- | :--- | :--- |
+| **Create** | ➕ Rezervasyon Oluşturma | Misafir ve tarih seçimi ile çakışma kontrollü kayıt. |
+| **Read** | 📋 Listeleme | Anlık konaklayanlar, boş odalar ve kasa hareketleri. |
+| **Update** | 🔄 Güncelleme | Check-In/Out işlemleri, ödeme alma, temizlik durumu değişimi. |
+| **Delete** | ❌ Silme/İptal | Hatalı veya iptal edilen rezervasyonların sistemden kaldırılması. |
+
+---
+
+## 📺 Tanıtım Videosu
+
+Projenin çalışır halini, MVC yapısını ve kodlarını detaylı incelediğim tanıtım videosunu aşağıdan izleyebilirsiniz:
+
+[![YouTube Video İzle](https://img.shields.io/badge/YouTube-Video_İzle-red?style=for-the-badge&logo=youtube)](BURAYA_YOUTUBE_LINKINI_YAPISTIR)
+
+[cite_start]*(Video Süresi: X Dakika)* [cite: 74]
+
+---
+
+<div align="center">
+
+*Bu proje, Web Tabanlı Programlama dersi final ödevi kapsamında geliştirilmiştir.*
+<br>
+👨‍💻 **Geliştirici:** [Adınız Soyadınız]
+
+</div>
