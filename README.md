@@ -82,6 +82,6 @@ Projenin çalışır halini, MVC yapısını ve kodlarını detaylı incelediği
 
 *Bu proje, Web Tabanlı Programlama dersi final ödevi kapsamında geliştirilmiştir.*
 <br>
-👨‍💻 **Geliştirici:** [Adınız Soyadınız]
+👨‍💻 **Geliştirici:** MEYLİS CHARYYEV
 
 </div>
