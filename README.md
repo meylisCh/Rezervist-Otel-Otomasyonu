@@ -74,7 +74,7 @@ Projenin çalışır halini, MVC yapısını ve kodlarını detaylı incelediği
 
 [![YouTube Video İzle](https://img.shields.io/badge/YouTube-Video_İzle-red?style=for-the-badge&logo=youtube)](https://youtu.be/G2ZIwmEenH4)
 
-*(Video Süresi: 08:00 Dakika)*
+*(Video Süresi: 08:15 Dakika)*
 
 ---
 
