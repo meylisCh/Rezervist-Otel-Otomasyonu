@@ -72,9 +72,9 @@ Proje, **MVC (Model-View-Controller)** mimari yapısına sadık kalınarak geli�
 
 Projenin çalışır halini, MVC yapısını ve kodlarını detaylı incelediğim tanıtım videosunu aşağıdan izleyebilirsiniz:
 
-[![YouTube Video İzle](https://img.shields.io/badge/YouTube-Video_İzle-red?style=for-the-badge&logo=youtube)](BURAYA_YOUTUBE_LINKINI_YAPISTIR)
+[![YouTube Video İzle](https://img.shields.io/badge/YouTube-Video_İzle-red?style=for-the-badge&logo=youtube)](https://youtu.be/G2ZIwmEenH4)
 
-*(Video Süresi: X Dakika)*
+*(Video Süresi: 08:00 Dakika)*
 
 ---
 
