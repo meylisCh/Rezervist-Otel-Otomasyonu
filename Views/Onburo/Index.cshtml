@@ -1,0 +1,134 @@
+@model IEnumerable<Rezervist.Models.Rezervasyon>
+
+@{
+    ViewData["Title"] = "Ön Büro Kontrol Paneli";
+    
+    // Genel Toplamları Hesapla
+    decimal toplamBeklenen = Model.Sum(x => x.ToplamTutar);
+    decimal toplamTahsilEdilen = Model.Where(x => x.OdendiMi).Sum(x => x.ToplamTutar);
+    decimal toplamBakiye = toplamBeklenen - toplamTahsilEdilen;
+}
+
+<div class="container-fluid mt-3"> <div class="row mb-3">
+        <div class="col-md-8">
+            <h3 class="fw-bold text-dark"><i class="fa-solid fa-desktop me-2"></i>Ön Büro Kontrol Paneli</h3>
+            <p class="text-muted small">Anlık folyo durumları, bakiyeler ve oda hareketleri.</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <button class="btn btn-outline-dark btn-sm" onclick="window.print()"><i class="fa-solid fa-print me-1"></i>Yazdır</button>
+            <button class="btn btn-success btn-sm"><i class="fa-solid fa-file-excel me-1"></i>Excel'e Aktar</button>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="p-3 bg-light border rounded d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small text-uppercase fw-bold">Toplam Ciro (Gelen Balans)</span>
+                    <h4 class="mb-0 text-primary">@toplamBeklenen.ToString("C2")</h4>
+                </div>
+                <i class="fa-solid fa-coins fa-2x text-primary opacity-25"></i>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 bg-light border rounded d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small text-uppercase fw-bold">Tahsil Edilen</span>
+                    <h4 class="mb-0 text-success">@toplamTahsilEdilen.ToString("C2")</h4>
+                </div>
+                <i class="fa-solid fa-check-double fa-2x text-success opacity-25"></i>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 bg-light border rounded d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small text-uppercase fw-bold">Açık Bakiye (Risk)</span>
+                    <h4 class="mb-0 text-danger">@toplamBakiye.ToString("C2")</h4>
+                </div>
+                <i class="fa-solid fa-file-invoice-dollar fa-2x text-danger opacity-25"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle mb-0" style="font-size: 0.9rem;">
+                    <thead class="bg-dark text-white text-center">
+                        <tr>
+                            <th style="width: 5%;">Oda</th>
+                            <th style="width: 15%;" class="text-start">Misafir Adı</th>
+                            <th style="width: 10%;">Giriş</th>
+                            <th style="width: 10%;">Çıkış</th>
+                            <th style="width: 5%;">Gün</th>
+                            <th style="width: 10%;">Günlük Fiyat</th>
+                            <th style="width: 10%; background-color:#2c3e50;">Gelen Balans</th> <th style="width: 10%;" class="bg-success text-white">Ödenen</th>
+                            <th style="width: 10%;" class="bg-danger text-white">Bakiye</th>
+                            <th style="width: 10%;">Durum</th>
+                            <th style="width: 5%;">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+{
+    // 1. Gün Sayısı Hesabı
+    var gunSayisi = (item.CikisTarihi - item.GirisTarihi).Days;
+    if (gunSayisi <= 0) gunSayisi = 1;
+
+    // 2. Günlük Fiyat Varsayımı (Eğer sistemde yoksa standart 1500 TL alalım veya OdaTipine göre if yazabiliriz)
+    decimal varsayilanGunlukFiyat = 1500; 
+
+    // 3. Gerçek Toplam Tutar Hesabı
+    // Eğer veritabanında Tutar 0 ise (henüz hesaplanmadıysa), biz tahmini hesaplayalım.
+    decimal guncelToplamTutar = item.ToplamTutar;
+    
+    if (guncelToplamTutar == 0)
+    {
+        guncelToplamTutar = gunSayisi * varsayilanGunlukFiyat;
+    }
+
+    // 4. Bakiye Hesabı
+    decimal odenen = item.OdendiMi ? item.ToplamTutar : 0; // Eğer ödendiyse tamamı ödenmiştir.
+    decimal kalanBakiye = item.OdendiMi ? 0 : guncelToplamTutar;
+
+    <tr>
+        <td class="text-center fw-bold text-primary">@(item.Oda?.OdaNumarasi ?? "N/A")</td>
+        <td class="fw-bold">@(item.Misafir?.AdSoyad ?? "N/A")</td>
+        <td class="text-center">@item.GirisTarihi.ToString("dd.MM")</td>
+        <td class="text-center text-danger">@item.CikisTarihi.ToString("dd.MM")</td>
+        <td class="text-center">@gunSayisi</td>
+        
+        <td class="text-end text-muted">
+            @((guncelToplamTutar / gunSayisi).ToString("N0")) ₺
+        </td>
+        
+        <td class="text-end fw-bold" style="background-color: #f8f9fa;">
+            @guncelToplamTutar.ToString("N2") ₺
+        </td>
+        
+        <td class="text-end text-success">
+            @odenen.ToString("N2") ₺
+        </td>
+        
+        <td class="text-end fw-bold @(kalanBakiye > 0 ? "text-danger" : "text-success")">
+            @kalanBakiye.ToString("N2") ₺
+        </td>
+
+        <td class="text-center">
+            @if(item.Durum == "Giriş Yapıldı")
+            { <span class="badge bg-success">In-House</span> }
+            else
+            { <span class="badge bg-warning text-dark">Expected</span> }
+        </td>
+        <td class="text-center">
+            <a href="/Rezervasyonlar/Details/@item.RezervasyonID" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </td>
+    </tr>
+}
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

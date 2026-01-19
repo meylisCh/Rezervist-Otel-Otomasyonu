@@ -1,0 +1,42 @@
+@model Rezervist.Models.Rezervasyon
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Rezervasyon</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Oda)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Oda.OdaID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Misafir)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Misafir.MisafirID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GirisTarihi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GirisTarihi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CikisTarihi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CikisTarihi)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.RezervasyonID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

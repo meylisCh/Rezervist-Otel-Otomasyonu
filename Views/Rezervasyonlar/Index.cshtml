@@ -1,0 +1,86 @@
+@model IEnumerable<Rezervist.Models.Rezervasyon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Rezervasyon Listesi</h1>
+
+<p>
+    <a asp-action="Create">Yeni Rezervasyon Ekle</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Misafir</th>
+        <th>Oda No</th>
+        <th>Giriş Tarihi</th>
+        <th>Çıkış Tarihi</th>
+        <th>Konaklama (Gün)</th> <th>Toplam Tutar</th>    <th>İşlemler</th>
+    </tr>
+</thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <i class="fa-solid fa-user me-2 text-secondary"></i>
+            @if (item.Misafir != null)
+            {
+                @Html.DisplayFor(modelItem => item.Misafir.AdSoyad)
+            }
+        </td>
+
+        <td>
+            @if (item.Oda != null)
+            {
+                <span class="badge bg-secondary">
+                    <i class="fa-solid fa-bed me-1"></i> @item.Oda.OdaNumarasi
+                </span>
+            }
+        </td>
+
+        <td>@item.GirisTarihi.ToString("dd.MM.yyyy")</td>
+        <td>@item.CikisTarihi.ToString("dd.MM.yyyy")</td>
+
+        @{
+            // 1. İki tarih arasındaki farkı al (TimeSpan türünde döner)
+            TimeSpan fark = item.CikisTarihi - item.GirisTarihi;
+            
+            // 2. Gün sayısını tam sayıya çevir
+            int gunSayisi = (int)fark.TotalDays;
+
+            // 3. Eğer aynı gün girip çıkacaksa en az 1 gün sayalım
+            if (gunSayisi <= 0) { gunSayisi = 1; }
+
+            // 4. Gün sayısı ile oda fiyatını çarp (Tutar Hesaplama)
+            decimal toplamTutar = (item.Oda != null) ? gunSayisi * item.Oda.Fiyat : 0;
+        }
+
+        <td>
+            <span class="badge bg-info text-dark">@gunSayisi Gün</span>
+        </td>
+        <td>
+            <strong class="text-success">@toplamTutar.ToString("C2")</strong> 
+            </td>
+
+        <td>
+            <div class="btn-group" role="group">
+                <a asp-action="Edit" asp-route-id="@item.RezervasyonID" class="btn btn-sm btn-warning" title="Düzenle"><i class="fa-solid fa-pen"></i></a>
+                <a asp-action="Details" asp-route-id="@item.RezervasyonID" class="btn btn-sm btn-info text-white" title="Detay"><i class="fa-solid fa-circle-info"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.RezervasyonID" class="btn btn-sm btn-danger" title="Sil"><i class="fa-solid fa-trash"></i></a>
+                @if (item.Durum != "Giriş Yapıldı")
+{
+                   <a asp-action="CheckIn" asp-route-id="@item.RezervasyonID" class="btn btn-sm btn-dark">
+                   <i class="fa-solid fa-door-open me-1"></i>Check-In
+                   </a>
+}
+                else
+{
+                   <span class="badge bg-success">Aktif</span>
+}
+            </div>
+        </td>
+    </tr>
+}
+</tbody>
+</table>

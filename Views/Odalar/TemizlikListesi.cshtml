@@ -1,0 +1,48 @@
+@model IEnumerable<Rezervist.Models.Oda>
+
+@{ ViewData["Title"] = "Housekeeping"; }
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-warning text-dark py-3">
+            <h4 class="mb-0"><i class="fa-solid fa-broom me-2"></i>Temizlik Bekleyen Odalar</h4>
+        </div>
+        <div class="card-body">
+            
+            @if (!Model.Any())
+            {
+                <div class="alert alert-success text-center p-5">
+                    <i class="fa-solid fa-sparkles fa-3x mb-3"></i>
+                    <h4>Harika! Tüm odalar tertemiz.</h4>
+                    <p>Şu an temizlenmesi gereken bir oda yok.</p>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var oda in Model)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-danger mb-3 h-100">
+                                <div class="card-body text-center">
+                                    <h1 class="display-4 fw-bold text-danger">@oda.OdaNumarasi</h1>
+                                    <p class="text-muted">@oda.OdaTipi</p>
+                                    <div class="alert alert-dark py-1">
+                                        Durum: <strong class="text-danger">KİRLİ</strong>
+                                    </div>
+                                    
+                                    <form asp-action="Temizle" method="post">
+                                        <input type="hidden" name="id" value="@oda.OdaID" />
+                                        <button type="submit" class="btn btn-success w-100 btn-lg">
+                                            <i class="fa-solid fa-check me-2"></i>Temizlendi
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div> 

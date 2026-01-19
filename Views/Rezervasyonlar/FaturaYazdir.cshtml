@@ -1,0 +1,85 @@
+@model Rezervist.Models.Rezervasyon
+@{ Layout = null; } <!DOCTYPE html>
+<html>
+<head>
+    <title>Fatura - @(Model.Misafir?.AdSoyad ?? "---")</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body { font-family: 'Times New Roman', serif; padding: 40px; }
+        .fatura-box { border: 2px solid #000; padding: 30px; max-width: 800px; margin: auto; }
+        .header { border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 20px; }
+        @Html.Raw("@media print { .no-print { display: none; } }")
+    </style>
+</head>
+<body>
+
+    <div class="text-center mb-4 no-print">
+        <button onclick="window.print()" class="btn btn-primary btn-lg">🖨️ YAZDIR</button>
+        <button onclick="window.close()" class="btn btn-secondary btn-lg">KAPAT</button>
+    </div>
+
+    <div class="fatura-box">
+        <div class="header d-flex justify-content-between align-items-center">
+            <div>
+                <h1>REZERVİST HOTEL</h1>
+                <p>Görükle Mah. Üniversite Cad. No:16 Bursa/Türkiye<br>Tel: +90 224 123 45 67<br>V.D: Uludağ - 1234567890</p>
+            </div>
+            <div>
+                <h2>FATURA</h2>
+                <p><strong>Tarih:</strong> @DateTime.Now.ToString("dd.MM.yyyy")<br>
+                   <strong>No:</strong> #@Model.RezervasyonID.ToString("D6")</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-6">
+                <h5>Sayın:</h5>
+                <h4 class="text-uppercase">@(Model.Misafir?.AdSoyad ?? "---")</h4>
+                <p>TC/Pasaport: @(Model.Misafir?.TCKimlik ?? "---")<br>
+                   Tel: @(Model.Misafir?.Telefon ?? "---")</p>
+            </div>
+            <div class="col-6 text-end">
+                <p><strong>Oda No:</strong> @(Model.Oda?.OdaNumarasi ?? "---")<br>
+                   <strong>Giriş:</strong> @Model.GirisTarihi.ToString("dd.MM.yyyy")<br>
+                   <strong>Çıkış:</strong> @Model.CikisTarihi.ToString("dd.MM.yyyy")</p>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-light">
+                    <th>Hizmet / Açıklama</th>
+                    <th class="text-end">Tutar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Konaklama Bedeli (@((Model.CikisTarihi - Model.GirisTarihi).Days) Gece)</td>
+                    <td class="text-end">Hesaplanıyor...</td> 
+                    </tr>
+                <tr>
+                    <td>Ekstra Harcamalar ve Hizmetler</td>
+                    <td class="text-end">Dahil</td>
+                </tr>
+                <tr style="font-size: 1.2rem;">
+                    <th class="text-end">GENEL TOPLAM</th>
+                    <th class="text-end">@Model.ToplamTutar.ToString("C2")</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="mt-5 pt-4 border-top">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <p>Resepsiyon<br><br>_________________</p>
+                </div>
+                <div class="col-6 text-center">
+                    <p>Misafir İmza<br><br>_________________</p>
+                </div>
+            </div>
+            <p class="text-center mt-4 small text-muted">Bizi tercih ettiğiniz için teşekkür ederiz.</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+@model IEnumerable<Rezervist.Models.Misafir>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Misafir Listesi</h1>
+
+<p>
+    <a asp-action="Create">Yeni Misafir Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdSoyad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TCKimlik)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdSoyad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TCKimlik)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MisafirID">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.MisafirID">Detaylar</a> |
+                <a asp-action="Delete" asp-route-id="@item.MisafirID">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

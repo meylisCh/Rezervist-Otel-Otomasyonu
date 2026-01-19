@@ -1,0 +1,148 @@
+@model IEnumerable<Rezervist.Models.Rezervasyon>
+
+@{
+    ViewData["Title"] = "Aktif Konaklayanlar";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-success text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">
+                    <i class="fa-solid fa-hotel me-2"></i>Otelde Konaklayan Misafirler
+                </h4>
+                <span class="badge bg-white text-success fs-6">
+                    <i class="fa-solid fa-user-check me-1"></i>@Model.Count() Misafir
+                </span>
+            </div>
+        </div>
+
+        <div class="card-body">
+            
+            <div class="mb-3">
+                <input type="text" id="aramaKutusu" class="form-control form-control-lg border-success" placeholder="🔍 İsim veya Oda No ile ara..." onkeyup="tabloFiltrele()">
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning text-center p-5">
+                    <i class="fa-solid fa-bed fa-3x mb-3 text-muted"></i><br/>
+                    <h5 class="text-muted">Şu an otelde giriş yapmış (Check-In) kimse görünmüyor.</h5>
+                    <p>Rezervasyonlar sayfasından giriş işlemi yapabilirsiniz.</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Oda No</th>
+                                <th>Misafir</th>
+                                <th>TC Kimlik</th>
+                                <th>Giriş Tarihi</th>
+                                <th>Çıkış Tarihi</th>
+                                <th>Durum</th>
+                                <th>Ödeme Durumu</th>
+                                <th class="text-end">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-primary fs-6">
+                                            @(item.Oda != null ? item.Oda.OdaNumarasi : "?")
+                                        </span>
+                                    </td>
+
+                                    <td class="fw-bold">
+                                        @(item.Misafir != null ? item.Misafir.AdSoyad : "Misafir Silinmiş")
+                                        <div class="small text-muted">
+                                            <i class="fa-solid fa-phone me-1"></i>
+                                            @(item.Misafir != null ? item.Misafir.Telefon : "-")
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @if(item.Misafir == null || string.IsNullOrEmpty(item.Misafir.TCKimlik))
+                                        {
+                                            <span class="text-muted fst-italic">Girilmemiş</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-dark font-monospace">@item.Misafir.TCKimlik</span>
+                                        }
+                                    </td>
+
+                                    <td>@item.GirisTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td class="text-danger fw-bold">@item.CikisTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+
+                                    <td>
+                                        <span class="badge bg-info text-dark">
+                                            <i class="fa-solid fa-suitcase me-1"></i>@item.Durum
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @if (item.OdendiMi)
+                                        {
+                                            <div class="d-flex align-items-center">
+                                                <span class="badge bg-success me-2"><i class="fa-solid fa-check me-1"></i>ÖDENDİ</span>
+                                                <a asp-action="OdemeAl" asp-route-id="@item.RezervasyonID" class="btn btn-sm btn-outline-secondary" title="Folyoyu Gör">
+                                                    <i class="fa-solid fa-file-invoice"></i>
+                                                </a>
+                                            </div>
+                                            <small class="text-muted d-block mt-1">(@item.ToplamTutar.ToString("C2"))</small>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="OdemeAl" asp-route-id="@item.RezervasyonID" class="btn btn-warning btn-sm text-dark fw-bold shadow-sm">
+                                                <i class="fa-solid fa-wallet me-1"></i>Ödeme Al
+                                            </a>
+                                        }
+                                    </td>
+
+                                    <td class="text-end">
+                                        <form asp-action="CheckOut" method="post">
+                                            <input type="hidden" name="id" value="@item.RezervasyonID" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Çıkış işlemini onaylıyor musunuz?');">
+                                                <i class="fa-solid fa-arrow-right-from-bracket me-1"></i>Check-Out
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+function tabloFiltrele() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("aramaKutusu");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        var tdOda = tr[i].getElementsByTagName("td")[0];
+        var tdIsim = tr[i].getElementsByTagName("td")[1];
+        
+        if (tdOda || tdIsim) {
+            var textOda = tdOda.textContent || tdOda.innerText;
+            var textIsim = tdIsim.textContent || tdIsim.innerText;
+            
+            if (textOda.toUpperCase().indexOf(filter) > -1 || textIsim.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
+</script>

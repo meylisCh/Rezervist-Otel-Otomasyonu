@@ -1,0 +1,40 @@
+@model Rezervist.Models.Rezervasyon
+
+<div class="container mt-5">
+    <div class="card shadow border-success">
+        <div class="card-header bg-success text-white">
+            <h4><i class="fa-solid fa-id-card me-2"></i>Otele Giriş (Check-In)</h4>
+        </div>
+        <div class="card-body">
+            
+            @if (ViewBag.Hata != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Hata</div>
+            }
+
+            @if (Model?.Misafir != null)
+            {
+                <h5>Misafir: <strong>@Model.Misafir.AdSoyad</strong></h5>
+            }
+            @if (Model != null)
+            {
+                <p>Oda No: @Model.OdaID (Lütfen anahtarı teslim ediniz)</p>
+            }
+            <hr />
+
+            <form asp-action="CheckIn" method="post">
+                <input type="hidden" name="id" value="@Model?.RezervasyonID" />
+                
+                <div class="form-group mb-4">
+                    <label class="fw-bold">TC Kimlik Numarası Giriniz (Zorunlu)</label>
+                    <input type="text" name="tcKimlikNo" class="form-control form-control-lg" maxlength="11" placeholder="11 haneli TC giriniz..." required />
+                    <small class="text-muted">Güvenlik gereği 11 hane olmak zorundadır.</small>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg w-100">
+                    <i class="fa-solid fa-check-circle me-2"></i>Girişi Onayla
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

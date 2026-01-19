@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-dark">Otel Yönetim Paneli</h1>
+    <p class="text-muted">Güncel durum raporu ve hızlı işlemler.</p>
+</div>
+
+<div class="row mb-4">
+    
+    <div class="col-md-3">
+        <div class="card shadow border-0 bg-success text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-wallet fa-3x mb-3 opacity-75"></i>
+                <h5 class="card-title">Toplam Kasa</h5>
+                <p class="card-text display-6 fw-bold">@ViewBag.Kasa.ToString("C0")</p>
+                <small class="opacity-75">Tahsil edilen tutar</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 bg-primary text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-chart-pie fa-3x mb-3 opacity-75"></i>
+                <h5 class="card-title">Doluluk Oranı</h5>
+                <p class="card-text display-6 fw-bold">%@ViewBag.DolulukOrani</p>
+                <div class="progress mt-2" style="height: 5px;">
+                    <div class="progress-bar bg-white" style="width: @ViewBag.DolulukOrani%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 bg-warning text-dark h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-users fa-3x mb-3 opacity-75"></i>
+                <h5 class="card-title">Konaklayanlar</h5>
+                <p class="card-text display-6 fw-bold">@ViewBag.AktifMisafir</p>
+                <small>Şu an oteldeki misafirler</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 bg-info text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-suitcase-rolling fa-3x mb-3 opacity-75"></i>
+                <h5 class="card-title">Bugün Gelecek</h5>
+                <p class="card-text display-6 fw-bold">@ViewBag.BugunGelecek</p>
+                <small>Check-In bekleyenler</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <i class="fa-solid fa-bolt me-2"></i>Hızlı İşlemler
+            </div>
+            <div class="card-body d-grid gap-2">
+                <a href="/Rezervasyonlar/Create" class="btn btn-outline-primary btn-lg text-start">
+                    <i class="fa-solid fa-plus-circle me-2"></i>Yeni Rezervasyon Oluştur
+                </a>
+                <a href="/Rezervasyonlar/Konaklayanlar" class="btn btn-outline-success btn-lg text-start">
+                    <i class="fa-solid fa-bed me-2"></i>Konaklayanları Listele & Ödeme Al
+                </a>
+                <a href="/Rezervasyonlar/Index" class="btn btn-outline-secondary btn-lg text-start">
+                    <i class="fa-solid fa-search me-2"></i>Rezervasyon Sorgula
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <i class="fa-solid fa-circle-info me-2"></i>Sistem Durumu
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Toplam Oda Sayısı
+                        <span class="badge bg-primary rounded-pill">@ViewBag.ToplamOda</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Dolu Oda Sayısı
+                        <span class="badge bg-danger rounded-pill">@ViewBag.DoluOda</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Boş Oda Sayısı
+                        <span class="badge bg-success rounded-pill">@(ViewBag.ToplamOda - ViewBag.DoluOda)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

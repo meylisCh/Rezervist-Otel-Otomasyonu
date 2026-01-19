@@ -1,0 +1,86 @@
+@model Rezervist.Models.Rezervasyon
+
+@{
+    ViewData["Title"] = "Yeni Rezervasyon";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white" style="border-radius: 10px 10px 0 0;">
+                    <h4 class="mb-0"><i class="fa-solid fa-calendar-plus me-2"></i>Yeni Rezervasyon Oluştur</h4>
+                </div>
+                <div class="card-body bg-light">
+                    
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert" style="display:none;"></div>
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <form asp-controller="Rezervasyonlar" asp-action="Create" method="post">
+                        
+                        <div class="card mb-4 border-secondary">
+                            <div class="card-body">
+                                <h6 class="card-title text-primary fw-bold border-bottom pb-2">
+                                    <i class="fa-solid fa-user-plus me-2"></i>Misafir Bilgileri
+                                </h6>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="control-label fw-bold">Ad Soyad</label>
+                                        <input type="text" name="misafirAd" class="form-control" required placeholder="Örn: Ahmet Yılmaz" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="control-label fw-bold">Telefon</label>
+                                        <input type="text" name="misafirTel" class="form-control" required placeholder="Örn: 0555 123 45 67" />
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning py-2 mb-0">
+                                    <small><i class="fa-solid fa-info-circle me-1"></i> Not: TC Kimlik numarası misafir otele giriş yaptığında (Check-In) alınacaktır.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 border-secondary">
+                            <div class="card-body">
+                                <h6 class="card-title text-success fw-bold border-bottom pb-2">
+                                    <i class="fa-solid fa-bed me-2"></i>Oda ve Tarih Bilgileri
+                                </h6>
+                                
+                                <div class="form-group mb-3">
+                                    <label class="control-label fw-bold">Oda Seçiniz</label>
+                                    <select asp-for="OdaID" class="form-control form-select" asp-items="ViewBag.OdaID" required>
+                                        <option value="">-- Lütfen Bir Oda Seçin --</option>
+                                    </select>
+                                    <span asp-validation-for="OdaID" class="text-danger"></span>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="GirisTarihi" class="control-label fw-bold">Giriş Tarihi</label>
+                                        <input asp-for="GirisTarihi" class="form-control" type="datetime-local" required />
+                                        <span asp-validation-for="GirisTarihi" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="CikisTarihi" class="control-label fw-bold">Çıkış Tarihi</label>
+                                        <input asp-for="CikisTarihi" class="form-control" type="datetime-local" required />
+                                        <span asp-validation-for="CikisTarihi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="fa-solid fa-check me-2"></i>Rezervasyonu Tamamla
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary shadow-sm">
+                                <i class="fa-solid fa-arrow-left me-2"></i>Listeye Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 100px;"></div>

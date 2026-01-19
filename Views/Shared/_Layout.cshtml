@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Rezervist</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Rezervist.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rezervist</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                            <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Odalar" asp-action="Index">Odalar</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-controller="Odalar" asp-action="TemizlikListesi">
+        Temizlik
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Misafirler" asp-action="Index">Misafirler</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Rezervasyonlar" asp-action="Index">Rezervasyonlar</a>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Rezervasyonlar" asp-action="Konaklayanlar">
+        Konaklayanlar
+    </a>
+</li>
+</li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                            
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <span class="navbar-text me-3 text-dark fw-bold">Merhaba, @User.Identity.Name</span>
+        <a href="/Account/Logout" class="btn btn-danger btn-sm">Çıkış Yap</a>
+    }
+</div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+</header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            
+            <div class="mb-4"> <a asp-controller="OnBuro" asp-action="Index" class="btn btn-warning text-dark fw-bold shadow-sm rounded-pill px-4">
+                    <i class="fa-solid fa-desktop me-2"></i>ÖN BÜRO PANELİ
+                </a>
+            </div>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2026 - Rezervist - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Başarılı Mesaj Varsa
+    @if (TempData["Basari"] != null)
+    {
+        <text>
+        Swal.fire({
+            icon: 'success',
+            title: 'Harika!',
+            text: '@Html.Raw(TempData["Basari"])', 
+            confirmButtonColor: '#198754',
+            timer: 3000
+        });
+        </text>
+    }
+
+    // Hata Mesajı Varsa (Para ödenmedi vb.)
+    @if (TempData["Hata"] != null)
+    {
+        <text>
+        Swal.fire({
+            icon: 'error',
+            title: 'Dikkat!',
+            text: '@Html.Raw(TempData["Hata"])', 
+            confirmButtonColor: '#dc3545'
+        });
+        </text>
+    }
+</script>
+</body>
+</html>
+<script>
+function tabloFiltrele() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("aramaKutusu");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    // Her satırı döngüye al
+    for (i = 1; i < tr.length; i++) { // i=1 yaptık çünkü başlığı (thead) atlıyoruz
+        // Hem Oda No (0. sütun) hem İsim (1. sütun) içinde arama yapalım
+        var tdOda = tr[i].getElementsByTagName("td")[0];
+        var tdIsim = tr[i].getElementsByTagName("td")[1];
+        
+        if (tdOda || tdIsim) {
+            var textOda = tdOda.textContent || tdOda.innerText;
+            var textIsim = tdIsim.textContent || tdIsim.innerText;
+            
+            if (textOda.toUpperCase().indexOf(filter) > -1 || textIsim.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
+</script>

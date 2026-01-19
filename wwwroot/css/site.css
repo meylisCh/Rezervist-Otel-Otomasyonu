@@ -1,0 +1,79 @@
+/* Arka Plan Resmi */
+body {
+    /* Otel temalı kaliteli bir görsel */
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* İçerik Kutusu - Buzlu Cam Efekti */
+.container {
+    background-color: rgba(255, 255, 255, 0.95); /* %95 Beyaz */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Navbar Düzenlemesi */
+.navbar {
+    background-color: rgba(33, 37, 41, 0.95) !important; /* Koyu yarı saydam */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navbar-brand, .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important; /* Altın sarısı hover efekti */
+}
+
+/* Tablo Güzelleştirme */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Butonlar */
+.btn {
+    border-radius: 20px;
+    padding: 8px 20px;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+/* Footer Çakışmasını Önleyen Boşluk */
+body {
+    margin-bottom: 80px; /* Footer yüksekliği kadar boşluk bırakır */
+}
+
+/* Footer'ı sayfa akışına uygun hale getir (Üstüne binmesini engeller) */
+.footer {
+    position: relative !important; /* Absolute yaparsak üstüne biner, relative yapınca aşağı kayar */
+    bottom: auto;
+    width: 100%;
+    margin-top: 50px; /* İçerikten 50px aşağıda dursun */
+    background-color: transparent; /* Arka planı şeffaf yap */
+    box-shadow: none !important; /* O beyaz gölgeyi kaldır */
+    border: none !important; /* Çizgiyi kaldır */
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* HTML elementinin yüksekliğini tam ayarla */
+html {
+    position: relative;
+    min-height: 100%;
+}
